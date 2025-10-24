@@ -24,3 +24,50 @@ def is_sentence(text):
         return False
 
     return True
+
+def get_sentence():
+    """Ask the user for a valid sentence and return it."""
+    while True:
+        sentence = input("Enter a sentence: ").strip()
+        if is_sentence(sentence):
+            return sentence
+        else:
+            print("Invalid sentence. Make sure it starts with a capital letter and ends with punctuation.")
+
+
+def calculate_frequencies(sentence):
+    """Split the sentence into words and count how often each word appears."""
+    # Remove the final punctuation
+    sentence = sentence[:-1].lower()
+    words = sentence.split()
+
+    word_list = []
+    freq_list = []
+
+    for word in words:
+        if word in word_list:
+            index = word_list.index(word)
+            freq_list[index] += 1
+        else:
+            word_list.append(word)
+            freq_list.append(1)
+
+    return word_list, freq_list
+
+
+def print_frequencies(words, frequencies):
+    """Print words and their frequencies."""
+    print("\nWord Frequencies:")
+    for i in range(len(words)):
+        print(f"{words[i]}: {frequencies[i]}")
+
+
+def main():
+    """Main function to control the program flow."""
+    sentence = get_sentence()
+    words, freqs = calculate_frequencies(sentence)
+    print_frequencies(words, freqs)
+
+
+if __name__ == "__main__":
+    main()
